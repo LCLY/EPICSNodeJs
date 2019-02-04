@@ -8,7 +8,7 @@ const fs = require("fs");
 
 var fetchNotes = () => {
 	try {
-		var noteString = fs.readFileSync("notes-data.json");
+		var noteString = fs.readFileSync("notes-data.json"); //readFileSync is a synchronous function
 		return JSON.parse(noteString); //getting the arra
 	} catch (e) {
 		return [];
