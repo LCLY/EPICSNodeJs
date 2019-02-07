@@ -51,10 +51,27 @@ var getAll = () => {};
 
 var getNote = title => {
 	console.log("Adding the note:", title);
+	var notes = fetchNotes();
+	var foundNote = notes.filter(note => note.title === title);
+	//it will create an array with only an item inside with the matched title
+	return foundNote[0];
 };
 
 var removeNote = title => {
-	console.log("Removing the note:", title);
+	//fetch notes
+	var notes = fetchNotes();
+	//filter notes, removing the one with title of argument
+	var filteredNotes = notes.filter(note => note.title !== title);
+	//save new array
+	saveNotes(filteredNotes);
+	//to check if we actually remove the note, we can compare the length of both array so if the note is removed, the length of the new array should be shorter than the original
+	return notes.length !== filteredNotes.length; //return a boolean value
+};
+
+var logNote = note => {
+	console.log("--");
+	console.log(`title: ${note.title}`);
+	console.log(`body: ${note.body}`);
 };
 
 //adding the modules into the export
@@ -63,4 +80,5 @@ module.exports = {
 	getAll,
 	getNote,
 	removeNote,
+	logNote,
 };

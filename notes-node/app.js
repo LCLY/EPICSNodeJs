@@ -22,21 +22,28 @@ if (command == "add") {
 	//note supposed to be an object that is returned from addNote
 	if (note) {
 		console.log("Note is created");
-		console.log("--");
-		console.log(`title: ${note.title}`);
-		console.log(`body: ${note.body}`);
+		notes.logNote(note); //REMEMBER "notes" is to call the module while "note" is the object that we get
 	} else {
 		console.log("Note is taken ");
 	}
 } else if (command == "list") {
 	notes.getAll();
 	console.log("list notes");
-} else if (command == "Read") {
+} else if (command == "read") {
 	console.log("Read note");
-	notes.getNote(argv.title);
-} else if (command == "Remove") {
-	console.log("Remove note");
-	notes.removeNote(argv.title);
+	var note = notes.getNote(argv.title);
+	if (note) {
+		console.log("Note is found");
+		notes.logNote(note);
+	} else {
+		console.log("Note not found");
+	}
+} else if (command == "remove") {
+	var noteRemoved = notes.removeNote(argv.title);
+	var message = noteRemoved ? `Note "${argv.title}" was removed` : `Note "${argv.title}" is not found`;
+	console.log(message);
 } else {
 	console.log("error: not recognized");
 }
+
+//dry principle: dont repeat yourself
